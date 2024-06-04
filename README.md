@@ -1,10 +1,13 @@
-# Getting Started with Create React App
+# Putting together a News app using class basaed component of react
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+## rce : to create an instance template for class component
+## rcs : react native component with style
 
 ### `npm start`
 
