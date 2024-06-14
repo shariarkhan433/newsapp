@@ -6,12 +6,12 @@ import News from './components/News';
 // import NewsItem from './components/NewsItem';
 
 export default class App extends Component {
-  c = "john"
+  
   render() {
     return (
       <div>
         <NavBar/>
-        <News/>
+        <News pageSize={6}/>
         
       </div>
     )
