@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner'
+import PropTypes from 'prop-types'
+
 
 export class News extends Component {
+  static defaultProps = {
+    country:"us",
+    pageSize:8,
+    category: "general"
+  }
+  static propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string
+  }
+
   constructor() {
     super()
     this.state = {
@@ -13,7 +26,7 @@ export class News extends Component {
   }
   //constructor age run hoi, trpor component run hoi
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0915bd148ab74fdd8805d362dec2f9f6&page=1&pageSize=${this.props.pageSize}`
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0915bd148ab74fdd8805d362dec2f9f6&page=1&pageSize=${this.props.pageSize}`
     this.setState({loading:true})
     let data = await fetch(url)
     let parsedata = await data.json()
@@ -27,7 +40,7 @@ export class News extends Component {
 
   handlePrevClick = async () =>{
     console.log("the prev click is working")
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0915bd148ab74fdd8805d362dec2f9f6&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0915bd148ab74fdd8805d362dec2f9f6&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
     this.setState({loading:true})
     let data = await fetch(url)
     let parsedata = await data.json()
@@ -43,7 +56,7 @@ export class News extends Component {
     console.log("the Next click is working")
     if(!(this.state.page+1 > Math.ceil(this.totalResults/20))){
      
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0915bd148ab74fdd8805d362dec2f9f6&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0915bd148ab74fdd8805d362dec2f9f6&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
     this.setState({loading: true})
     let data = await fetch(url)
     let parsedata = await data.json()
@@ -59,8 +72,8 @@ export class News extends Component {
   
   render() {
     return ( //The total summation of a container should be a 12. so how many time we are dividing determines the no of elements
-      <div className='container my-3'>
-        <h2>Top Headlines</h2>
+      <div className='container my-3 text-center'>
+        <h2 style={{margin: '35px'}}>Top Headlines</h2>
       {this.state.loading && <Spinner/>}
         <div className="row">
           {!this.state.loading && this.state.articles.map((elements) => {
